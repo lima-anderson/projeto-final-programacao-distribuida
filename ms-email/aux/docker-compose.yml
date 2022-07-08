@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  cloud-beaver:
+    image: dbeaver/cloudbeaver:latest
+    ports:
+      - "8081:8978"
+    volumes:
+      - ./cloudbeaver/workspace:/opt/cloudbeaver/workspace
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: postgres
+    volumes:
+      - $PWD/data:/var/lib/postgresql/data
